@@ -13,3 +13,18 @@ Regular expression in some condition
         return ($exception === '_') ? $text : str_replace(explode('_', $exception), '', $text);
     }
 ```
+
+
+### 判斷 ig 的貼文留言內容是否有標記其他用戶
+因 ig api 尚未提供被標記的用戶資訊，僅能以文字中的 @xxx 來判斷是否為有效標記
+
+```php
+    // 判斷留言中的 @xxx 數量
+    private function countTagMan(string $commentText)
+    {
+        $tagMen = [];
+        preg_match_all('/(^|\s)@[a-zA-Z0-9_][a-zA-Z0-9_.]+/', $commentText, $tagMen);
+
+        return count($tagMen[0]);
+    }
+```
